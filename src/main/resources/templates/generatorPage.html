@@ -16,9 +16,7 @@ xmlns:th="http://www.thymeleaf.org">
         </select>
         <input class="" type="text" th:name="qrCodeText">
         <button class="btn btn-primary" type="submit">Gerar QrCode</button>
-            <img th:src="|data:image/png;base64,${qrcode}|"/>
-            
-      
+        <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}">
     </form>
     </div>
 </body>

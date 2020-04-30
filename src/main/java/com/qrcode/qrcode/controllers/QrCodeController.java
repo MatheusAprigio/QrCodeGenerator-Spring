@@ -33,11 +33,11 @@ public class QrCodeController {
 
     @PostMapping("generate")
 
-    public String postMethodName(
-    @RequestParam(value = "qrCodeText", required = true) String qrCodeText , @RequestParam(value="textType") String textType, RedirectAttributes attributes) throws WriterException, IOException{
+    public String postGenerateQrCode(
+    @RequestParam(value = "qrCodeText", required = true) String qrCodeText , @RequestParam(value="textType") String textType, Model model) throws WriterException, IOException{
          
-        attributes.addFlashAttribute("qrcode", qrCodeService.generateQrCode(qrCodeText));
-        return "redirect:generatorPage";
+        model.addAttribute("qrcode", qrCodeService.generateQrCode(qrCodeText));
+        return "generatorPage";
     }
     
     @ExceptionHandler({IOException.class, WriterException.class})
