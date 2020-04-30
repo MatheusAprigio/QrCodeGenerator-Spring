@@ -8,15 +8,23 @@ xmlns:th="http://www.thymeleaf.org">
     <title>Document</title>
 </head>
 <body>
-    <div class="container"> 
-    <form th:action="@{generate}" method="POST">
-        <select th:name="textType" id="">
-            <option value="text">Texto</option>
-            <option value="url">Imagem</option>
-        </select>
-        <input class="" type="text" th:name="qrCodeText">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+          <img src="qrCode.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
+        QrCode Generator
+        </a>
+      </nav>
+    <div class="container mt-4"> 
+    <h4 class="text-center mb-4">Insira o texto desejado e gere um QrCode.</h4>
+    <form th:action="@{generate}" method="POST" class="form-group">
+        <div class="form-group">
+        <input class="form-control" type="text" th:name="qrCodeText" >
+    </div>
+    <div th:if="${qrcode != null}" class="form-group">
+        <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}" class="mx-auto d-block">
+    </div>
         <button class="btn btn-primary" type="submit">Gerar QrCode</button>
-        <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}">
+        <a th:if="${qrcode != null}" th:href="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}"  class="btn btn-primary" download="QrCode"> Baixar Imagem</a>
     </form>
     </div>
 </body>

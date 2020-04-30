@@ -20,7 +20,7 @@ public class QrCodeService {
     public String generateQrCode(String qrCodeText) throws WriterException, IOException{
         
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, 400, 400);    
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, 300, 300);    
         
            
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();

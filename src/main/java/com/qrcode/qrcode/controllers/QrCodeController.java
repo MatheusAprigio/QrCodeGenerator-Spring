@@ -34,7 +34,7 @@ public class QrCodeController {
     @PostMapping("generate")
 
     public String postGenerateQrCode(
-    @RequestParam(value = "qrCodeText", required = true) String qrCodeText , @RequestParam(value="textType") String textType, Model model) throws WriterException, IOException{
+    @RequestParam(value = "qrCodeText", required = true) String qrCodeText, Model model) throws WriterException, IOException{
          
         model.addAttribute("qrcode", qrCodeService.generateQrCode(qrCodeText));
         return "generatorPage";
