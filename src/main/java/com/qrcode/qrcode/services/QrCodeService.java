@@ -2,8 +2,6 @@ package com.qrcode.qrcode.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.Base64;
 
 import com.google.zxing.BarcodeFormat;
@@ -19,6 +17,7 @@ public class QrCodeService {
 
     public String generateQrCode(String qrCodeText) throws WriterException, IOException{
         
+        if (qrCodeText.trim().isEmpty()) { qrCodeText = "Empty QrCode";};
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, 300, 300);    
         

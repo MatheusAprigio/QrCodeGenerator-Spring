@@ -10,12 +10,13 @@ xmlns:th="http://www.thymeleaf.org">
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-          <img src="qrCode.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
+          <img src="qrCode.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="QRCode">
         QrCode Generator
         </a>
       </nav>
     <div class="container mt-4"> 
     <h4 class="text-center mb-4">Insira o texto desejado e gere um QrCode.</h4>
+    <a th:if="${error == null}" th:text="${error}"> Baixar Imagem</a>
     <form th:action="@{generate}" method="POST" class="form-group">
         <div class="form-group">
         <input class="form-control" type="text" th:name="qrCodeText" >
