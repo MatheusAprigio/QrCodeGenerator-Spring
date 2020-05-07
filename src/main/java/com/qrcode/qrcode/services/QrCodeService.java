@@ -15,13 +15,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class QrCodeService {
 
-    public String generateQrCode(String qrCodeText) throws WriterException, IOException{
+    
+    public String formatUrltextQrCode(String content) throws WriterException, IOException{
         
-        if (qrCodeText.trim().isEmpty()) { qrCodeText = "Empty QrCode";};
+        if (content.trim().isEmpty()) { content = "Empty QrCode";};
+        
+        return generateQrCodeImage(content);
+    }
+    
+    public String generateQrCodeImage(String content) throws IOException, WriterException {
+        
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, 300, 300);    
-        
-           
+        BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 300, 300);  
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
         String pngData = Base64.getEncoder().encodeToString(pngOutputStream.toByteArray()); 

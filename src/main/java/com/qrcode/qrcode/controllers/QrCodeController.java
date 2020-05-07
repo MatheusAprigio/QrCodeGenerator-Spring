@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -26,13 +27,13 @@ public class QrCodeController {
         return "generatorPage";
     }
 
-    @PostMapping("generate")
-
+    @PostMapping("generateTextUrlQrCode")
     public String postGenerateQrCode(
-    @RequestParam(value = "qrCodeText", required = true) String qrCodeText, Model model) throws WriterException, IOException{
-         
-        model.addAttribute("qrcode", qrCodeService.generateQrCode(qrCodeText));
-        return "generatorPage";
+    @RequestParam(value = "qrCodeText", required = true) String qrCodeText, RedirectAttributes attributes) throws WriterException, IOException{
+        
+        String pngImage = qrCodeService.formatUrltextQrCode(qrCodeText);
+        attributes.addFlashAttribute("qrcode", pngImage);
+        return "redirect: ";
     }
      
     @ExceptionHandler({IOException.class, WriterException.class})
