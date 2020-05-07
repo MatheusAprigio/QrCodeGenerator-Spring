@@ -1,7 +1,7 @@
 package com.qrcode.qrcode.services;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.Base64;
 
 import com.google.zxing.BarcodeFormat;

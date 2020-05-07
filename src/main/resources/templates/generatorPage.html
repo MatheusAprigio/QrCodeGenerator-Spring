@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-xmlns:th="http://www.thymeleaf.org">
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
+    <title>QrCode Generator</title>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -14,19 +15,37 @@ xmlns:th="http://www.thymeleaf.org">
         QrCode Generator
         </a>
       </nav>
-    <div class="container mt-4"> 
-    <h4 class="text-center mb-4">Insira o texto desejado e gere um QrCode.</h4>
-    <a th:if="${error == null}" th:text="${error}"> Baixar Imagem</a>
-    <form th:action="@{generate}" method="POST" class="form-group">
-        <div class="form-group">
-        <input class="form-control" type="text" th:name="qrCodeText" >
-    </div>
-    <div th:if="${qrcode != null}" class="form-group">
-        <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}" class="mx-auto d-block">
-    </div>
-        <button class="btn btn-primary" type="submit">Gerar QrCode</button>
-        <a th:if="${qrcode != null}" th:href="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}"  class="btn btn-primary" download="QrCode"> Baixar Imagem</a>
-    </form>
-    </div>
+      <nav>
+        <div class="nav nav-tabs mt-4" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-text-tab" data-toggle="tab" href="#nav-text" role="tab" aria-controls="text" aria-selected="true">Text/URL</a>
+          <a class="nav-item nav-link" id="nav-phone-tab" data-toggle="tab" href="#nav-phone" role="tab" aria-controls="nav-phone" aria-selected="false">Phone Number</a>
+          <a class="nav-item nav-link" id="nav-information-tab" data-toggle="tab" href="#nav-information" role="tab" aria-controls="#nav-information" aria-selected="false">Contact Information</a>
+          <a class="nav-item nav-link" id="nav-wifi-tab" data-toggle="tab" href="#nav-wifi" role="tab" aria-controls="nav-wifi" aria-selected="false">Wi-fi Network</a>
+          <a class="nav-item nav-link" id="nav-googlestore-tab" data-toggle="tab" href="#nav-googlestore" role="tab" aria-controls="#nav-googlestore" aria-selected="false">Google Play Store</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-text" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div th:insert="fragments/textUrlForm"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-phone" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div th:insert="fragments/phoneNumberForm"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div th:insert="fragments/InformationForm"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-wifi" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div th:insert="fragments/wifiForm"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-googlestore" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div th:insert="fragments/googleStoreForm"></div>
+        </div>
+      </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
