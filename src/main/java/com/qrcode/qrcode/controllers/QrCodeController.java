@@ -3,8 +3,8 @@ package com.qrcode.qrcode.controllers;
 import java.io.IOException;
 
 import com.google.zxing.WriterException;
-import com.qrcode.qrcode.model.Contact;
-import com.qrcode.qrcode.model.NetworkConnection;
+import com.qrcode.qrcode.models.Contact;
+import com.qrcode.qrcode.models.NetworkConnection;
 import com.qrcode.qrcode.services.QrCodeService;
 
 import org.springframework.beans.factory.annotation.Autowired;

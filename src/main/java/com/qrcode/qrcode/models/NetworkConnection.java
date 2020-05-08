@@ -1,4 +1,4 @@
-package com.qrcode.qrcode.model;
+package com.qrcode.qrcode.models;
 
 public class NetworkConnection {
     
