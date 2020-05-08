@@ -11,11 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class QrCodeController {
@@ -42,6 +40,15 @@ public class QrCodeController {
             RedirectAttributes attributes) throws WriterException, IOException {
 
         String pngImage = qrCodeService.formatPhoneNumberQrCode(phoneNumber);
+        attributes.addFlashAttribute("qrcode", pngImage);
+        return "redirect: ";
+    }
+
+    @PostMapping("generatePackageQrCode")
+    public String postGeneratePackageQrCode(@RequestParam(value = "package", required = true) String packageName,
+            RedirectAttributes attributes) throws WriterException, IOException {
+
+        String pngImage = qrCodeService.formatPackagetQrCode(packageName);
         attributes.addFlashAttribute("qrcode", pngImage);
         return "redirect: ";
     }

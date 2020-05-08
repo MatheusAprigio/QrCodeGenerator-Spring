@@ -10,7 +10,8 @@
             <input class="form-control" id="password" type="text" th:name="password">
         </div>
         <div class="form-group">
-            <select class="form-control" th:name="securityType">
+            <label for="securityType">Security Type</label>
+            <select class="form-control" th:name="securityType" id="securityType">
                 <option th:value="null">None</option>
                 <option th:value="WPA">WPA</option>
                 <option th:value="WEP">WEP</option>

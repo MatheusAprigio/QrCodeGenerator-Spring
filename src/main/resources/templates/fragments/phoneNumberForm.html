@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <a th:if="${error == null}" th:text="${error}"> Baixar Imagem</a>
+    <a th:if="${error == null}" th:text="${error}"></a>
     <form th:action="@{generatePhoneQrCode}" method="POST" class="form-group">
         <div class="form-group">
             <label for="phoneNumber">Phone Number</label>

@@ -23,9 +23,16 @@ public class QrCodeService {
         return generateQrCodeImage(content);
     }
 
+    public String formatPackagetQrCode(String appPackage) throws IOException, WriterException {
+        
+        appPackage = "market://details?id=" + appPackage;
+
+        return generateQrCodeImage(appPackage);
+    }
+
+
     public String formatPhoneNumberQrCode(String phoneNumber) throws IOException, WriterException {
         
-        if (phoneNumber.trim().isEmpty()) { phoneNumber = "Empty QrCode";};
         phoneNumber = "tel: " + phoneNumber;
 
         return generateQrCodeImage(phoneNumber);
