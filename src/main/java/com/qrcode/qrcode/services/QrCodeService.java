@@ -16,11 +16,26 @@ import org.springframework.stereotype.Service;
 public class QrCodeService {
 
     
-    public String formatUrltextQrCode(String content) throws WriterException, IOException{
+    public String formatUrltextQrCode(String content) throws IOException, WriterException {
         
         if (content.trim().isEmpty()) { content = "Empty QrCode";};
         
         return generateQrCodeImage(content);
+    }
+
+    public String formatPhoneNumberQrCode(String phoneNumber) throws IOException, WriterException {
+        
+        if (phoneNumber.trim().isEmpty()) { phoneNumber = "Empty QrCode";};
+        phoneNumber = "tel: " + phoneNumber;
+
+        return generateQrCodeImage(phoneNumber);
+    }
+    
+    public String formatNetworkQrCode(String networkName, String password, String securityType) throws IOException, WriterException {
+        
+        String wifiConnection = "WIFI:T:" + securityType + ";S:" + networkName  +";P:"+ password + ";;";    
+
+        return generateQrCodeImage(wifiConnection);
     }
     
     public String generateQrCodeImage(String content) throws IOException, WriterException {

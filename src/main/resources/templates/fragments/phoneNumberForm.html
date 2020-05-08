@@ -1,1 +1,15 @@
-.
+<div class="container mt-5">
+    <a th:if="${error == null}" th:text="${error}"> Baixar Imagem</a>
+    <form th:action="@{generatePhoneQrCode}" method="POST" class="form-group">
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input class="form-control"id="phoneNumber" type="text" th:name="phoneNumber" placeholder="E.g - +12125551212">
+        </div>
+        <div th:if="${qrcode != null}" class="form-group">
+            <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}" class="mx-auto d-block">
+        </div>
+        <button class="btn btn-primary" type="submit">Generate QrCode</button>
+        <a th:if="${qrcode != null}" th:href="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}"
+            class="btn btn-primary" download="QrCode"> Download</a>
+    </form>
+</div>

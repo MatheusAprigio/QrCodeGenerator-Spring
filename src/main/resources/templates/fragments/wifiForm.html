@@ -1,1 +1,26 @@
-.
+<div class="container mt-5">
+    <a th:if="${error == null}" th:text="${error}"> Baixar Imagem</a>
+    <form th:action="@{generateNetworkQrCode}" method="POST" class="form-group">
+        <div class="form-group">
+            <label for="network">Your network name</label>
+            <input class="form-control" id="network" type="text" th:name="name" placeholder="E.g - Bell833">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password" type="text" th:name="password">
+        </div>
+        <div class="form-group">
+            <select class="form-control" th:name="securityType">
+                <option th:value="null">None</option>
+                <option th:value="WPA">WPA</option>
+                <option th:value="WEP">WEP</option>
+            </select>
+        </div>
+        <div th:if="${qrcode != null}" class="form-group">
+            <img th:src="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}" class="mx-auto d-block">
+        </div>
+        <button class="btn btn-primary" type="submit">Generate QrCode</button>
+        <a th:if="${qrcode != null}" th:href="${qrcode} == null ? _ : @{'data:image/png;base64,'+${qrcode}}"
+            class="btn btn-primary" download="QrCode"> Download</a>
+    </form>
+</div>
