@@ -3,7 +3,8 @@ package com.qrcode.qrcode.controllers;
 import java.io.IOException;
 
 import com.google.zxing.WriterException;
-import com.qrcode.qrcode.Model.NetworkConnection;
+import com.qrcode.qrcode.model.Contact;
+import com.qrcode.qrcode.model.NetworkConnection;
 import com.qrcode.qrcode.services.QrCodeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class QrCodeController {
     public String postGeneratePhoneQrCode(@RequestParam(value = "phoneNumber", required = true) String phoneNumber,
             RedirectAttributes attributes) throws WriterException, IOException {
 
-        String pngImage = qrCodeService.formatPhoneNumberQrCode(phoneNumber);
+        String pngImage = qrCodeService.formatPhoneNumber(phoneNumber);
         attributes.addFlashAttribute("qrcode", pngImage);
         return "redirect: ";
     }
@@ -48,7 +49,7 @@ public class QrCodeController {
     public String postGeneratePackageQrCode(@RequestParam(value = "package", required = true) String packageName,
             RedirectAttributes attributes) throws WriterException, IOException {
 
-        String pngImage = qrCodeService.formatPackagetQrCode(packageName);
+        String pngImage = qrCodeService.formatPackage(packageName);
         attributes.addFlashAttribute("qrcode", pngImage);
         return "redirect: ";
     }
@@ -56,11 +57,19 @@ public class QrCodeController {
     @PostMapping("generateNetworkQrCode")
     public String postGenerateNetworkQrCode(NetworkConnection network, RedirectAttributes attributes) throws WriterException, IOException {
 
-        String pngImage = qrCodeService.formatNetworkQrCode(network.getName(), network.getPassword(), network.getSecurityType());
+        String pngImage = qrCodeService.formatNetwork(network);
         attributes.addFlashAttribute("qrcode", pngImage);
         return "redirect: ";
     }
 
+
+    @PostMapping("generateContactQrCode")
+    public String postGenerateContactQrCode(Contact contact, RedirectAttributes attributes) throws WriterException, IOException {
+
+        String pngImage = qrCodeService.formatContact(contact);
+        attributes.addFlashAttribute("qrcode", pngImage);
+        return "redirect: ";
+    }
     @ExceptionHandler({ IOException.class, WriterException.class })
     public ModelAndView handleIOException(Exception ex) {
         ModelAndView mav = new ModelAndView();

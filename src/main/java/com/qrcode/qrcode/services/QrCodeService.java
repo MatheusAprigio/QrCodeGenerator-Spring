@@ -3,12 +3,15 @@ package com.qrcode.qrcode.services;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException; 
 import java.util.Base64;
+import java.util.regex.Pattern;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.qrcode.qrcode.model.Contact;
+import com.qrcode.qrcode.model.NetworkConnection;
 
 import org.springframework.stereotype.Service;
 
@@ -23,28 +26,45 @@ public class QrCodeService {
         return generateQrCodeImage(content);
     }
 
-    public String formatPackagetQrCode(String appPackage) throws IOException, WriterException {
+    public String formatPackage(String appPackage) throws IOException, WriterException {
         
         appPackage = "market://details?id=" + appPackage;
 
         return generateQrCodeImage(appPackage);
     }
 
-
-    public String formatPhoneNumberQrCode(String phoneNumber) throws IOException, WriterException {
+    public String formatPhoneNumber(String phoneNumber) throws IOException, WriterException {
         
-        phoneNumber = "tel: " + phoneNumber;
+        String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
+        phoneNumber = "tel: " + phoneNumber.replaceAll(pattern, "");
 
         return generateQrCodeImage(phoneNumber);
     }
     
-    public String formatNetworkQrCode(String networkName, String password, String securityType) throws IOException, WriterException {
+    public String formatNetwork(NetworkConnection network) throws IOException, WriterException {
         
-        String wifiConnection = "WIFI:T:" + securityType + ";S:" + networkName  +";P:"+ password + ";;";    
+        String wifiConnection = "WIFI:T:" + network.getSecurityType() + ";S:" + network.getName()  +";P:"+ network.getPassword() + ";;";    
 
         return generateQrCodeImage(wifiConnection);
     }
     
+    public String formatContact(Contact contact) throws IOException, WriterException {
+
+        String contactText = "MECARD:N:"+ contact.getName() 
+        + ";ADR:"+ contact.getAddress()
+        + ";TEL:" + contact.getAddress() 
+        + ";EMAIL:" + contact.getEmail() +";;";
+
+        return generateQrCodeImage(contactText);
+    }
+    
+    public String formatContact(String appPackage) throws IOException, WriterException {
+        
+        appPackage = "market://details?id=" + appPackage;
+
+        return generateQrCodeImage(appPackage);
+    }
+
     public String generateQrCodeImage(String content) throws IOException, WriterException {
         
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

@@ -7,6 +7,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>QrCode Generator</title>
+    <link rel="icon" href="qrCode.png">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -32,7 +33,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <div th:insert="fragments/phoneNumberForm"></div>
         </div>
         <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-contact-tab">
-            <div th:insert="fragments/InformationForm"></div>
+            <div th:insert="fragments/ContactForm"></div>
         </div>
         <div class="tab-pane fade" id="nav-wifi" role="tabpanel" aria-labelledby="nav-contact-tab">
             <div th:insert="fragments/wifiForm"></div>
