@@ -62,7 +62,6 @@ public class QrCodeController {
         return "redirect: ";
     }
 
-
     @PostMapping("generateContactQrCode")
     public String postGenerateContactQrCode(Contact contact, RedirectAttributes attributes) throws WriterException, IOException {
 
@@ -70,6 +69,7 @@ public class QrCodeController {
         attributes.addFlashAttribute("qrcode", pngImage);
         return "redirect: ";
     }
+
     @ExceptionHandler({ IOException.class, WriterException.class })
     public ModelAndView handleIOException(Exception ex) {
         ModelAndView mav = new ModelAndView();

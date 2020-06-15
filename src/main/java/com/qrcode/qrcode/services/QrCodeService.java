@@ -3,7 +3,6 @@ package com.qrcode.qrcode.services;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException; 
 import java.util.Base64;
-import java.util.regex.Pattern;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class QrCodeService {
 
-    
     public String formatUrltextQrCode(String content) throws IOException, WriterException {
         
         if (content.trim().isEmpty()) { content = "Empty QrCode";};
@@ -28,7 +26,7 @@ public class QrCodeService {
 
     public String formatPackage(String appPackage) throws IOException, WriterException {
         
-        appPackage = "market://details?id=" + appPackage;
+        appPackage = "market://details?id=" + appPackage.trim();
 
         return generateQrCodeImage(appPackage);
     }
@@ -36,31 +34,32 @@ public class QrCodeService {
     public String formatPhoneNumber(String phoneNumber) throws IOException, WriterException {
         
         String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
-        phoneNumber = "tel: " + phoneNumber.replaceAll(pattern, "");
+        phoneNumber = "tel: " + phoneNumber.trim().replaceAll(pattern, "");
 
         return generateQrCodeImage(phoneNumber);
     }
     
     public String formatNetwork(NetworkConnection network) throws IOException, WriterException {
         
-        String wifiConnection = "WIFI:T:" + network.getSecurityType() + ";S:" + network.getName()  +";P:"+ network.getPassword() + ";;";    
+        String wifiConnection = "WIFI:T:" + network.getSecurityType().trim() + ";S:" + network.getName()  +";P:"+ network.getPassword() + ";;";    
 
         return generateQrCodeImage(wifiConnection);
     }
     
     public String formatContact(Contact contact) throws IOException, WriterException {
 
+        String pattern = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}";
         String contactText = "MECARD:N:"+ contact.getName() 
-        + ";ADR:"+ contact.getAddress()
-        + ";TEL:" + contact.getAddress() 
-        + ";EMAIL:" + contact.getEmail() +";;";
+        + ";ADR:"+ contact.getAddress().trim()
+        + ";TEL:" + contact.getPhoneNumber().trim().replaceAll(pattern, "") 
+        + ";EMAIL:" + contact.getEmail().trim() +";;";
 
         return generateQrCodeImage(contactText);
     }
     
     public String formatContact(String appPackage) throws IOException, WriterException {
         
-        appPackage = "market://details?id=" + appPackage;
+        appPackage = "market://details?id=" + appPackage.trim();
 
         return generateQrCodeImage(appPackage);
     }

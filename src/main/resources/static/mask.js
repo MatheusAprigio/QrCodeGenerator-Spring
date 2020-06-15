@@ -1,0 +1,1 @@
+$(".phoneNumber-input").mask("(999) 99999-9999");
